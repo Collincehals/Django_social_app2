@@ -1,0 +1,64 @@
+ {% load static %}
+
+ <style>
+  .header {
+    top:0;left:0;
+    width:100%;
+    padding:1rem 1.5rem; 
+    background:rgb(241,240,253);
+    margin:0;
+    border-bottom: 0.5px solid #ccc;
+    position:sticky;
+    z-index:10;
+  }
+
+  .nav>ul {
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:1rem;
+  }
+
+  .nav-link {
+    color:red;
+    font-size:16px;
+    font-weight:600;
+  }
+  .menu-bars{
+    display:none;
+  }
+@media (max-width: 768px) {
+  .nav {
+        display:none;
+    }
+    .menu-bars{
+    display:block;
+  }
+}
+ </style>
+ <header class="header">
+    <div style="display:flex; flex-wrap:wrap; justify-content: space-between;align-items: center;">
+      <div style="display:flex; flex-wrap:wrap; gap:5px; justify-content: flex-start;align-items: center;">
+        <img src="{% static 'logo.svg' %}" alt="img">
+        <a style="font-size:20px;font-weight: 700;" href="/">Colltech</a>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li class="nav-link"><a href="{% url 'posts' %}">Posts</a></li>
+          <li class="nav-link"><a href="{% url 'create_post' %}">Create Post</a></li>
+          <li class="nav-link"><a href="{% url 'url-videos' %}">Videos</a></li>
+        </ul>
+      </nav>
+      <div style="display:flex;justify-content: flex-start; gap:3px;align-items: center;">
+        {% if user.is_authenticated %}
+        <img src="{{ user.profile.image.url }}" alt="upload" style="width:28px;height:28px;border-radius:50%;"><b>{{ user.username }}</b>
+        <a href="{% url 'account_logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'account_login' %}" class="submitbtn">Login</a>
+        {% endif %}
+      </div>
+      <div class="menu-bars">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </div>
+  </header>

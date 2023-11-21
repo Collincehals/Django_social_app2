@@ -1,0 +1,19 @@
+{% extends 'layouts/home_layout.html' %}
+{% block head_title %} Post-{{ post.id }} {% endblock head_title %}
+
+
+{% block content %}
+<style>
+  .card-container{
+    width:90%;
+    height:auto;
+    max-width:400px;
+    margin:50px auto;
+    }
+    
+</style>
+
+<div class="container card-container">
+  {% include 'includes/post.html' %}
+</div>
+{% endblock %}

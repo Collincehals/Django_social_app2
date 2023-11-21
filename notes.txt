@@ -1,0 +1,135 @@
+#1. cmd to open command prompt
+
+#{assuming you already have python installedin your computer}
+#2. Install django in your OS: run the command: 
+pip install django;
+
+#3. Navigate to the directory you want to create your django project in: type: 
+cd <your project_folder_path>
+
+#4. RUN the command inside your folder to create a django project: 
+django-admin startproject <project name>
+
+#5.open the project created in a text editor: type the command: 
+code .
+
+#6. Once in the text editor like VS Code, create a virtual environment for the project:
+#Run the command in command prompt(Windows OS): python -m venv <name of your virtualenv> e.g., 
+python -m venv venv
+#virtual environment ensures that the project dependancies are installed only for and within the project and not in the global python environment.
+
+#7. Activate the virtual environment: Run the following command in command promt: venv\Scripts\activate or 
+in Powershell: 
+source venv/Scripts/activate
+
+#8. cd to the project directory you created. e.g, if you created a django project called main, then: 
+cd main
+
+#9. Run the following command in command prompt: python manage.py runserver
+This initiates the django project.
+
+10. Follow the link in the logs(localhost:8000) to view your project in a web browser.
+CONGRATS! YOU JUST CREATED YOUR FIRST DJANGO PROJECT!
+
+
+#REQUIREMENTS:
+pip install pillow:  to work with media files
+pip install django-cleanup: to clear residual files e.g updated profile pictures.
+pip install django-crispy-forms
+pip install whitenoise: rendering static files when debug is enabled.
+pip install django-allauth: for django and social auths.(follow documentation for more)
+
+
+
+
+
+EMBEDDED VIDEO IN DJANGO:
+#Run the following command on your CLI:under venv
+pip install django-embed-video
+
+#Add the following to your settings.py file under the installed apps:
+INSTALLED_APPS = (
+    ...
+    'embed_video',
+)
+
+
+#Also add the following to your models.py file:
+#Model examples
+
+from django.db import models
+from embed_video.fields import EmbedVideoField
+
+class Item(models.Model):
+    video = EmbedVideoField()  # same like models.URLField()
+
+#Also add the following to your admin.py file:
+#Admin mixin examples
+
+from django.contrib import admin
+from embed_video.admin import AdminVideoMixin
+from .models import Item
+
+class MyModelAdmin(AdminVideoMixin, admin.ModelAdmin):
+    pass
+
+admin.site.register(Item, MyModelAdmin)
+
+
+#Add the following tag to your template for rendering the embed_video:
+#Template examples
+{% load embed_video_tags %}
+
+# you can just embed #
+{% for item in videos %}
+<div class="video-card">
+      <div class="post-img"> 
+        {% video item.video 'small' %}
+                    or 
+        {% video item.video '100% x 100%' %}
+                    or 
+        {% video item.video '500 x 500' %}
+      </div>
+</div>
+{% endfor %}
+
+
+
+#ANIMATE SCROLLING:
+#animate.css: 
+#Add this in the head:
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+#In the body, add the following scripts:
+#jQuery CDN:
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+#waypoint CDN:
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+#your js script
+<script src="{% static 'js/script.js' %}"></script>
+
+#js script for animation:
+$(document).ready(function() {
+   let offset  = {offset:"80%"}
+$(".first-paragraph").waypoint(function(){
+   $(".first-paragraph").addClass(
+    "animate__animated animate__fadeInLeft"
+   );
+}, 
+offset
+);
+
+})
+
+#In your styles, add:
+ .first-paragraph {
+    opacity: 0;
+  }
+
+  .first-paragraph.animate__animated {
+    opacity:1;
+    animation-delay: .3s;
+  }

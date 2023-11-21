@@ -1,0 +1,93 @@
+{% extends 'layouts/home_layout.html' %}
+{% load embed_video_tags %}
+{% block head_title %} Videos {% endblock head_title %}
+
+
+{% block content %}
+<style>
+  .card-container {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+    padding:10px;
+  }
+  .post-card {
+    border:1px solid #ccc;
+    border-radius: 8px;
+  }
+  .post-card:hover {
+    box-shadow: 0 0 5px 0 rgba(76, 76, 71,.3);
+  }
+  .post-img {
+    width:100%;
+    height:300px;
+    object-fit: cover;
+  }
+  .post-body {
+    padding:10px;
+  }
+  .post-title {
+    color:darkorange;
+    font-size:large;
+    font-weight:800;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .post-caption {
+    color:darkblue;
+    font-size:16px;
+    font-weight:500;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  .user-detail {
+    font-size: 16px;
+    color:gray;
+    padding-left:5px;
+    margin-bottom:3px;
+  }
+  .user-detail>a {
+    text-decoration: none;
+    color:gray;
+  }
+  .date-posted {
+    margin-left:10px;
+    font-size:14px;
+    color:darkblue;
+  }
+  .empty-post {
+    display:flex;
+    text-align:center;
+    justify-content:center;
+    align-items:center;
+    color:darkblue;
+    font-size:22px;
+    font-weight:600;
+  }
+  @media (max-width:768px) {
+    .card-container {
+        grid-template-columns: 100%;
+      }
+      .container{
+        margin-right:5px;
+        margin-left:5px;
+      }
+  }
+  @media (min-width:768px) and (max-width:1040px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+  }
+</style>
+
+<div class="container card-container">
+{% for item in videos %}
+<div class="post-card">
+      <div class="post-img"> 
+        {% video item.video '100% x 100%' %}
+      </div>
+  </div>
+{% empty %}
+<div class="empty-post">No Posts Yet :(</div>
+{% endfor %}
+</div>
+{% endblock %}

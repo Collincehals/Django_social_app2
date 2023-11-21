@@ -1,0 +1,47 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account socialaccount %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<style>
+    .login-form p {
+       display:block;
+    }
+</style>
+    {% element h1 %}
+    <div style="font-size:25px;color:darkblue;font-weight:600;margin-bottom:10px;text-align: center;">{% trans "Login to Colltech" %}</div>
+    {% endelement %}
+
+{% url 'account_login' as login_url %}
+{% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+
+
+<p style="font-size:16px;color:darkblue;text-align:center;">
+{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first and login below:{% endblocktrans %}
+</p>
+
+{% element form form=form method="post" action=login_url tags="entrance,login" %}
+    {% slot body %}
+        {% csrf_token %}
+        <div class="login-form">
+        {% element fields form=form unlabeled=True %}
+        {% endelement %}
+        </div>
+        {% if redirect_field_value %}
+            <input type="hidden"
+                   name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}" />
+        {% endif %}
+    {% endslot %}
+    {% slot actions %}
+        {% element button type="submit" tags="prominent,login" %}
+            {% trans "Login" %}
+        {% endelement %}
+    {% endslot %}
+    
+{% endelement %}
+
+{% endblock content %}

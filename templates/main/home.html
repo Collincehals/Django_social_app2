@@ -1,0 +1,75 @@
+{% extends 'layouts/home_category.html' %}
+{% load static %}
+{% block head_title %} Posts {% endblock head_title %}
+
+{% block content %}
+<style>
+  .card-container {
+    display:grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap:5px;
+    padding:10px;
+  }
+  .container-category {
+    display:none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:10px;
+    align-items: center;
+    margin:15px auto;
+  }
+  .container-category>a {
+    padding:10px 12px;
+    border:1px solid #ccc;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+    background:rgb(241, 240, 254);
+    border-radius: 15px;
+    color:black;
+  }
+  .container-category>a:hover {
+    background:black;
+    color:white;
+    cursor:pointer;
+  }
+  .highlighted {
+    background-color: black;
+    color:white;
+  }
+  .empty-post {
+      display:flex;
+      text-align:center;
+      justify-content:center;
+      align-items:center;
+      color:darkblue;
+      font-size:22px;
+      font-weight:600;
+    }
+
+
+  @media (max-width:768px) {
+    .card-container {
+        grid-template-columns: 100%;
+      }
+    .container-category {
+      display:flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap:10px;
+      align-items: center;
+      margin:15px auto;
+    }
+  }
+</style>
+<div class="container-category">
+    {% for category in categories %}
+    <a href="{% url 'category' category.slug %}">{{ category }}</a>
+    {% endfor %}
+</div>
+<div class="card-container">
+  {% for post in posts %}
+    {% include 'includes/post.html' %}
+  {% empty %}
+  <div class="empty-post">No Posts Yet :(</div>
+  {% endfor %}
+</div>
+{% endblock %}

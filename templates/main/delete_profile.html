@@ -1,0 +1,136 @@
+{% extends 'layouts/home_layout.html' %}
+{% block head_title %} Profile-edit {% endblock head_title %}
+
+{% block content %}
+<div class="form-card">
+    <h3>Are you Sure you want to delete your profile? </h3>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="submitbtn" type="submit">Confirm</button>
+        <a class="warnbtn" href="{{ request.META.HTTP_REFERER }}" type="submitbtn">Go Back</a>
+    </form>
+</div>
+{% endblock %}
+
+form label {
+    font-size:16px;
+}
+form input {
+    padding:15px;
+    border-radius: 8px;
+    margin-bottom:5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+}
+form input:focus {
+    outline:.5px solid darkblue;
+    box-shadow: 0 0 0 1px darkblue;
+}
+form textarea {
+    
+    padding:15px;
+    border-radius: 8px;
+    resize:vertical;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+    margin-bottom: 5px;
+}
+form textarea:focus {
+    outline:.5px solid darkblue;
+    box-shadow: 0 0 0 1px darkblue;
+}
+.h3-post {
+    color:darkblue;
+    font-weight:600px;
+    padding:10px 0;
+    padding-bottom: 10px;
+    font-size:25px;
+}
+
+
+
+
+
+
+button {
+    padding:10px 15px;
+    font-size:14px;
+    font-weight:bold;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background:darkblue;
+    margin:5px auto;
+    text-decoration:none;
+}
+
+.submitbtn {
+    padding:10px 15px;
+    font-size:14px;
+    font-weight:bold;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background:darkblue;
+    margin:5px auto;
+    text-decoration:none;
+}
+.submitbtn:hover {
+    box-shadow: 0 0 0 1px rgb(49, 100, 49);
+    transition:scale(1.1);
+    background-color:rgb(49, 100, 49);
+}
+
+
+button:hover {
+    box-shadow: 0 0 0 1px rgb(49, 100, 49);
+    transition:scale(1.1);
+    background-color:rgb(49, 100, 49);
+}
+
+.warnbtn {
+    padding:10px 15px;
+    font-size:14px;
+    font-weight:bold;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background:rgb(244, 8, 8);
+    margin:5px auto;
+    text-decoration:none;
+}
+.warnbtn:hover {
+    box-shadow: 0 0 0 1px rgb(255, 81, 6);
+    transition:scale(1.1);
+    background-color:rgb(237, 34, 16);
+}
+.utility-btns {
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap:20px;
+    
+}
+.utility-btns>a {
+    text-decoration:none;
+    color:darkblue;
+}
+.utility-btns>a:hover {
+    text-decoration:underline;
+}
+
+
+
+<ul class="dropdown-menu text-small">
+    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+    <li><a class="dropdown-item" href="{% url 'profile-edit' %}">Profile Edit</a></li>
+    <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
+    <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a></li>
+    <li><a class="dropdown-item" href="{% url 'account_email' %}">Change Email</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign out</a></li>
+  </ul>

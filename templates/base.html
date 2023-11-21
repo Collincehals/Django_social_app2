@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'logo.svg' %}">
+    <title>{% block head_title %} Home {% endblock head_title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        
+        * {
+            box-sizing: border-box;
+            border:none;
+            outline:none;
+            transition: all .3s linear;
+            text-decoration:none;
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            background:rgb(253, 248, 250);
+        }
+
+        ::-webkit-scrollbar {
+            width:10px;
+        }
+        ::-webkit-scrollbar-track{
+            background-color: rgb(227, 223, 218);
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgb(195, 174, 149);
+            border-radius: 5px;
+        }
+        
+        ul, ol {
+            list-style-type: none;
+        }
+
+        .container {
+            margin-right:20px;
+            margin-left:20px;
+        }
+        
+        .form-card {
+            max-width:550px;
+            width:100%;
+            background:rgba(241,240,253,0.8);
+            border-radius: 10px;
+            padding:20px;
+            margin:30px auto;
+            border:1px solid #ccc;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+        }
+        button {
+            padding:10px 15px;
+            font-size:14px;
+            font-weight:bold;
+            color:#fff;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            background:darkblue;
+            margin:5px auto;
+            text-decoration:none;
+        }
+        button:hover {
+            box-shadow: 0 0 0 1px rgb(49, 100, 49);
+            transition:scale(1.1);
+            background-color:rgb(49, 100, 49);
+        }
+
+        .submitbtn {
+            padding:10px 15px;
+            font-size:14px;
+            font-weight:bold;
+            color:#fff;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            background:darkblue;
+            margin:5px auto;
+            text-decoration:none;
+        }
+        .submitbtn:hover {
+            box-shadow: 0 0 0 1px rgb(49, 100, 49);
+            transition:scale(1.1);
+            background-color:rgb(49, 100, 49);
+        }
+
+        .warnbtn {
+            padding:10px 15px;
+            font-size:14px;
+            font-weight:bold;
+            color:#fff;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            background:rgb(244, 8, 8);
+            margin:5px auto;
+            text-decoration:none;
+        }
+        .warnbtn:hover {
+            box-shadow: 0 0 0 1px rgb(255, 81, 6);
+            transition:scale(1.1);
+            background-color:rgb(237, 34, 16);
+        }
+        
+      
+        /* MORE DJANGO-ALLAUTH FORM STYLING*/
+    
+        form p {
+            margin-bottom:1rem;
+            display:flex;
+            align-items:center;
+        }
+
+        form p label {
+            width: 7rem;
+        }
+
+        label {
+            margin: 6px 0 3px;
+        }
+        input, textarea {
+            width: 100%;
+        }
+        input[type="file"], select {
+            background-color: none;
+            padding-left: 0;
+        }
+        label[for="id_remember"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        input[name="remember"] {
+            width: auto;
+            vertical-align: auto;
+        }
+    
+        .textarea, textarea {
+            margin-bottom: 1rem;
+        }
+        textarea, input {
+            border-radius: 0.5rem;
+            padding: 1rem 1.2rem;
+            outline:none;
+        }
+
+        .textarea:focus, textarea:focus, input:focus {
+            border:.2px solid rgba(23, 65, 215, 0.5);
+        }
+        
+        .errorlist li {
+            color: rgb(253, 88, 49);
+            text-decoration: none;
+            padding: 0.5rem;
+            padding-left: 1rem;
+            border-left: 5px solid rgb(253, 88, 49);
+            margin-bottom: 1rem;
+        }
+
+        #id_tags {
+            margin-bottom: 1rem;
+        }
+        #id_tags div {
+            display:inline-block;
+            gap:20px; 
+        }
+        #id_tags div label {
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ccc;
+            width: auto;
+            cursor: pointer;
+            user-select: none;
+        }
+        #id_tags input {
+            display: none;
+        }
+        #id_tags label:has(input:checked) {
+            background-color:black;
+            color: white;
+            border: 1px solid black;
+        }
+
+    
+        .post-form-title {
+            font-size:28px;
+            font-weight:700;
+            padding-bottom:10px;
+            text-align: center;
+            color:darkblue;
+            }
+ 
+        @media (max-width: 378px) {
+            form p {
+            flex-wrap:wrap;
+        }
+        }
+    </style>
+</head>
+<body>
+{% include "includes/header.html" %}
+
+{% include "includes/messages.html" %}
+
+{% block layout %}
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

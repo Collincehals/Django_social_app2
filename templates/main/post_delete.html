@@ -1,0 +1,45 @@
+{% extends 'layouts/home_layout.html' %}
+{% block head_title %} Delete/Post-{{ post.id }} {% endblock head_title %}
+
+
+{% block content %}
+<style>
+  .card-container{
+    max-width:900px;
+    margin:50px auto;
+    display:flex;
+    justify-content: flex-start;
+    gap:30px;
+    flex-wrap:wrap;
+    align-items:center;
+    }
+  .post-card {
+    max-width:400px;
+    width:100%;
+    border:1px solid #ccc;
+    border-radius: 8px;
+  }
+  .confirm-card {
+    max-width:400px;
+    width:100%;
+  }
+  .confirm-text{
+    color:darkblue;
+    font-weight:bold;
+    font-size:25px;
+  }
+  
+</style>
+
+<div class="container card-container">
+      {% include "includes/post.html" %}
+    <div class="confirm-card">
+        <p class="confirm-text">Are you sure you want to delete this post? </p>
+        <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="warnbtn">Confirm</button>
+        <a href="{{ request.META.HTTP_REFERER }}" type="submit" class="submitbtn">Go back</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

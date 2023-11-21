@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block layout %}
+<style>
+    .mainpage {
+        width:45%;
+        padding:20px;
+        margin-top:50px;
+        margin-left:80px;
+    }
+    .side-bar {
+        position:fixed;
+        width:250px;
+        height:350px;
+        background:rgb(241,240,253);
+        border:1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 0 2px 0 rgba(0,0,0,.3);
+        padding:25px;
+        top:150px;
+        right:80px;
+    }
+    .side-bar-title {
+        padding-bottom:10px;
+        color:darkblue;
+        font-weight:700;
+        text-align: center;
+        font-size:22px;
+    }
+    
+    .side-bar-category>a {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        padding:10px 20px;
+        border:1px solid #ccc;
+        margin-bottom:5px;
+        color:black;
+  
+    }
+    .highlighted>a {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        padding:10px 20px;
+        border-radius: 15px;
+        margin-bottom:7px;
+        color:white;
+        background:rgb(18, 18, 18);
+    }
+
+    @media (max-width:768px) {
+        .mainpage{
+            width:100%;
+            margin-left:10px;
+        }
+        .side-bar {
+            display:none;
+        }
+
+    }
+   
+</style>
+    <div class="mainpage">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <div class="side-bar">
+            <p class="side-bar-title">Categories</p>
+            {% for category in categories %}
+                {% if category.slug == tag.slug %}
+                <div class="highlighted">
+                {% else %}
+                <div class="side-bar-category">
+                {% endif %}
+                <a href="{% url 'category' category.slug %}">{{ category }}</a>
+                </div>  
+            {% endfor %}
+                </div>
+               
+    </div>
+{% endblock %}

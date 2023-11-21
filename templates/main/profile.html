@@ -1,0 +1,53 @@
+{% extends 'layouts/home_layout.html' %}
+{% block head_title %} Profile-{{ profile.user.username }} {% endblock head_title %}
+
+
+{% block layout %}
+<style>
+  .profile-posts-container {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap:20px;
+    padding:20px;
+  }
+  .empty-post {
+    display:flex;
+    text-align:center;
+    justify-content:center;
+    align-items:center;
+    color:darkblue;
+    font-size:22px;
+    font-weight:600;
+  }
+  @media (max-width:768px) {
+    .profile-posts-container {
+        grid-template-columns: 1fr;
+      }
+  }
+  @media (min-width:768px) and (max-width:1040px) {
+    .profile-posts-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+  }
+</style>
+
+<div class="container">
+    <div style="padding:30px; width:100%; max-width:500px;background:rgb(241,240,253);border-radius: 12px; border:1px solid #ccc;margin:30px auto;text-align:center;">
+        <img style='width:60px;height:60px; border-radius:50%; object-fit: cover;' src="{{ profile.image.url }}">
+        <div style="text-align: center;color:darkblue;font-weight:bold;font-size:20px;">
+            <p>{{ profile.user.username }}</p>
+            <p>{{ profile.location }}</p>
+            <p>{{ profile.bio }}</p>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="profile-posts-container">
+{% for post in posts %}
+  {% include 'includes/post.html' %}
+{% empty %}
+  <div class="empty-post">No Posts Yet :(</div>
+{% endfor %}
+</div>
+{% endblock %}
